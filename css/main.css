@@ -1,0 +1,78 @@
+html {
+}
+body {
+  background: url('../images/tablewood.jpg');
+  background-size: auto 130px;
+  perspective: 1500px;
+  font-family: 'Playfair Display', serif;
+}
+
+.leaflet {
+  margin: auto;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 30vw;
+  height: 40vh;
+  transform-style: preserve-3d;
+}
+.page {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: 1s;
+}
+.page:nth-child(1) {
+  z-index: 2;
+  transform-origin: left;
+}
+.page:nth-child(3) {
+  z-index: 1;
+  transform-origin: right;
+}
+.page:nth-child(1).page-flipped {
+  transform: rotateY(-150deg);
+}
+.page:nth-child(3).page-flipped {
+  transform: rotateY(150deg);
+}
+.page-face {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: cornsilk;
+  backface-visibility: hidden;
+}
+.page-face:nth-child(2),
+.page-face:nth-child(4),
+.page-face:nth-child(6) {
+  transform: rotateY(180deg);
+}
+
+.cover-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* font-size: 1.5rem; */
+}
+.cover-page::before {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  top: 10px;
+  bottom: 10px;
+  border: 1px solid tan;
+}
+.menu-header-title {
+  font-family: 'Courgette', cursive;
+}
