@@ -15,8 +15,9 @@ body {
   top: 0;
   bottom: 0;
   width: 30vw;
-  height: 40vh;
+  height: 30vh;
   transform-style: preserve-3d;
+  transition: 1s;
 }
 .page {
   position: absolute;
@@ -50,10 +51,13 @@ body {
   background: cornsilk;
   backface-visibility: hidden;
 }
-.page-face:nth-child(2),
-.page-face:nth-child(4),
-.page-face:nth-child(6) {
+.page-face:nth-child(2) {
   transform: rotateY(180deg);
+}
+.page:nth-child(1) .page-face:nth-child(2),
+.page:nth-child(2) .page-face:nth-child(1),
+.page:nth-child(3) .page-face:nth-child(2) {
+  background: #fff;
 }
 
 .cover-page {
@@ -73,6 +77,61 @@ body {
   bottom: 10px;
   border: 1px solid tan;
 }
+
+/* 글자 */
 .menu-header-title {
   font-family: 'Courgette', cursive;
+}
+.menu-list {
+  transform-style: preserve-3d;
+}
+.menu-item {
+  position: relative;
+  display: grid;
+  margin: 1rem;
+  grid-template-columns: 1fr 5fr;
+  transform-style: preserve-3d;
+  transition: linear 0.5s;
+}
+.menu-item-photo {
+  background: url('../images/avatar.png');
+  background-size: cover;
+}
+.menu-item-info {
+  margin-left: 0.5rem;
+  font-size: 0.5rem;
+}
+.member-name {
+  font-weight: 800;
+}
+.back-btn {
+  /* 줌 인 했을때만 보임 */
+  display: none;
+  position: absolute;
+  /* top: -0.25rem; */
+  right: 0.25rem;
+  font-size: 0.5rem;
+}
+.close-btn {
+  position: absolute;
+  top: -1.5rem;
+  right: 1rem;
+  color: #fff;
+  text-shadow: rgba(0, 0, 0, 0.3) 0 1px 0;
+  backface-visibility: hidden;
+}
+
+.leaflet-opened .close-btn {
+  display: inline-block;
+}
+
+/* 줌인 되었을때 */
+.zoom-in .menu-item {
+  opacity: 0;
+}
+.zoom-in .current-menu {
+  opacity: 1;
+}
+.zoom-in .current-menu .back-btn {
+  display: block;
 }
