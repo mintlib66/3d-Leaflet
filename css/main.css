@@ -5,6 +5,19 @@ body {
   background-size: auto 130px;
   perspective: 1500px;
   font-family: 'Playfair Display', serif;
+  overflow: hidden;
+}
+
+.hand {
+  position: absolute;
+  z-index: 10;
+  width: 400px;
+  pointer-events: none;
+  transition: ease-in;
+}
+.hand img {
+  transition: 1s;
+  transform-origin: left top;
 }
 
 .leaflet {
@@ -18,6 +31,8 @@ body {
   height: 30vh;
   transform-style: preserve-3d;
   transition: 1s;
+  cursor: pointer;
+  box-shadow: 0 0.25rem 0.5rem 0 rgba(0, 0, 0, 0.3);
 }
 .page {
   position: absolute;
@@ -88,13 +103,15 @@ body {
 .menu-item {
   position: relative;
   display: grid;
-  margin: 1rem;
+  margin: 0.75rem 1rem;
   grid-template-columns: 1fr 5fr;
   transform-style: preserve-3d;
   transition: linear 0.5s;
 }
 .menu-item-photo {
   background: url('../images/avatar.png');
+  width: 3rem;
+  height: 3rem;
   background-size: cover;
 }
 .menu-item-info {
@@ -126,6 +143,9 @@ body {
 }
 
 /* 줌인 되었을때 */
+.zoom-in .hand img {
+  transform: scale(2);
+}
 .zoom-in .menu-item {
   opacity: 0;
 }

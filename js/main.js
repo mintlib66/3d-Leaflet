@@ -1,8 +1,15 @@
 ;(() => {
   const leaflet = document.querySelector('.leaflet')
   const pageElems = document.querySelectorAll('.page')
+  const hand = document.querySelector('.hand')
   let openCount = 0
   let currentMenu
+  let isZoomIn = false
+
+  const handPos = { x: 0, y: 0 }
+  const targetPos = { x: 0, y: 0 }
+  let distX
+  let distY
 
   function getTarget(elem, className) {
     while (!elem.classList.contains(className)) {
@@ -44,6 +51,7 @@
         break
     }
 
+    isZoomIn = true
     document.body.classList.add('zoom-in')
     leaflet.style.transform = `translate3d(${dx}px, ${dy}px, 60vw) rotateY(${angle}deg)`
     currentMenu = elem
@@ -51,11 +59,37 @@
   }
 
   function zoomOut() {
+    isZoomIn = false
     document.body.classList.remove('zoom-in')
     leaflet.style.transform = 'none'
-    currentMenu.classList.remove('current-menu')
-    currentMenu = null
+    if (currentMenu) {
+      currentMenu.classList.remove('current-menu')
+      currentMenu = null
+    }
   }
+
+  function render() {
+    distX = targetPos.x - handPos.x
+    distY = targetPos.y - handPos.y
+    handPos.x = handPos.x + distX * 0.1
+    handPos.y = handPos.y + distY * 0.1
+
+    if (isZoomIn) {
+      hand.style.transform = `translate(${handPos.x - 130}px, ${
+        handPos.y + 10
+      }px)`
+    } else {
+      hand.style.transform = `translate(${handPos.x - 70}px, ${handPos.y}px)`
+    }
+    requestAnimationFrame(render)
+  }
+
+  render()
+
+  window.addEventListener('mousemove', e => {
+    targetPos.x = e.clientX
+    targetPos.y = e.clientY
+  })
 
   leaflet.addEventListener('click', e => {
     let pageElem = getTarget(e.target, 'page')
@@ -71,6 +105,7 @@
     let closeBtnElem = getTarget(e.target, 'close-btn')
     if (closeBtnElem) {
       closeLeaflet()
+      zoomOut()
     }
 
     let menuItemElem = getTarget(e.target, 'menu-item')
