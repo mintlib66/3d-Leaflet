@@ -87,8 +87,8 @@
   render()
 
   window.addEventListener('mousemove', e => {
-    targetPos.x = e.clientX
-    targetPos.y = e.clientY
+    targetPos.x = e.clientX - window.innerWidth * 0.7
+    targetPos.y = e.clientY - window.innerHeight * 0.7
   })
 
   leaflet.addEventListener('click', e => {
@@ -109,7 +109,7 @@
     }
 
     let menuItemElem = getTarget(e.target, 'menu-item')
-    if (menuItemElem) {
+    if (menuItemElem && !isZoomIn) {
       zoomIn(menuItemElem)
     }
 
@@ -117,5 +117,9 @@
     if (backBtnElem) {
       zoomOut()
     }
+  })
+
+  leaflet.addEventListener('animationend', () => {
+    leaflet.style.animation = 'none'
   })
 })()

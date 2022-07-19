@@ -1,4 +1,14 @@
+@keyframes init-animation {
+  0% {
+    transform: translate(-100%, 100%) rotate(-540deg);
+  }
+  100% {
+    transform: translate(0, 0), rotate(0);
+  }
+}
+
 html {
+  font-size: 14px;
 }
 body {
   background: url('../images/tablewood.jpg');
@@ -13,7 +23,8 @@ body {
   z-index: 10;
   width: 400px;
   pointer-events: none;
-  transition: ease-in;
+  left: 70%;
+  top: 70%;
 }
 .hand img {
   transition: 1s;
@@ -28,12 +39,13 @@ body {
   top: 0;
   bottom: 0;
   width: 30vw;
-  height: 30vh;
+  height: 30vw;
   transform-style: preserve-3d;
   transition: 1s;
   cursor: pointer;
-  box-shadow: 0 0.25rem 0.5rem 0 rgba(0, 0, 0, 0.3);
+  animation: init-animation 1s forwards;
 }
+
 .page {
   position: absolute;
   left: 0;
@@ -42,6 +54,7 @@ body {
   height: 100%;
   transform-style: preserve-3d;
   transition: 1s;
+  box-shadow: 0 0.25rem 0.5rem 0 rgba(0, 0, 0, 0.3);
 }
 .page:nth-child(1) {
   z-index: 2;
@@ -65,6 +78,7 @@ body {
   height: 100%;
   background: cornsilk;
   backface-visibility: hidden;
+  transform-style: preserve-3d;
 }
 .page-face:nth-child(2) {
   transform: rotateY(180deg);
@@ -80,7 +94,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* font-size: 1.5rem; */
+  font-size: 1.5rem;
 }
 .cover-page::before {
   content: '';
@@ -103,7 +117,7 @@ body {
 .menu-item {
   position: relative;
   display: grid;
-  margin: 0.75rem 1rem;
+  padding: 2em;
   grid-template-columns: 1fr 5fr;
   transform-style: preserve-3d;
   transition: linear 0.5s;
@@ -119,14 +133,15 @@ body {
   font-size: 0.5rem;
 }
 .member-name {
+  font-size: 1rem;
   font-weight: 800;
 }
 .back-btn {
   /* 줌 인 했을때만 보임 */
   display: none;
   position: absolute;
-  /* top: -0.25rem; */
-  right: 0.25rem;
+  top: 0.5rem;
+  right: 0.5rem;
   font-size: 0.5rem;
 }
 .close-btn {
